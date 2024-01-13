@@ -179,9 +179,13 @@ void TestaArrayDeContasCorrentes(){
 //TestaArrayDeContasCorrentes();
 #endregion
 
-ArrayList _listaDeContas= new ArrayList();
+List<ContaCorrente> _listaDeContas= new List<ContaCorrente>(){
+    new ContaCorrente(95, "123456-A") {Saldo=100},
+    new ContaCorrente(96, "123456-B") {Saldo=1400},
+    new ContaCorrente(97, "123456-C") {Saldo=500}
+};
 
-AtendimentoClientes();
+//AtendimentoClientes();
 
 void AtendimentoClientes(){
     char opcao = '0';
@@ -210,6 +214,7 @@ void AtendimentoClientes(){
         }
     }
 }
+
  void ListarContas(){
     Console.Clear();
     Console.WriteLine("==============================");
@@ -226,7 +231,8 @@ void AtendimentoClientes(){
         Console.WriteLine("==============================");
         Console.WriteLine("===     Dados da Conta     ===");
         Console.WriteLine("Numero da Conta: " + item.Conta);
-        Console.WriteLine("Titulat  da  Conta: " + item.Titular.Nome);
+        Console.WriteLine("Numero da Saldo: " + item.Saldo);
+        Console.WriteLine("Titular  da  Conta: " + item.Titular.Nome);
         Console.WriteLine("CPF do titular: " + item.Titular.Cpf);
         Console.WriteLine("Profissao do titular: " + item.Titular.Profissao);
         Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
@@ -263,6 +269,7 @@ void CadastrarConta()
     conta.Titular.Profissao = Console.ReadLine();
 
     _listaDeContas.Add(conta);
+    
     Console.WriteLine("... Conta cadastrada com sucesso! ...");
     Console.ReadKey();
 
@@ -270,3 +277,64 @@ void CadastrarConta()
 
 
 }
+
+
+//Listas genericas
+List<ContaCorrente> _listaDeContas2= new List<ContaCorrente>(){
+    new ContaCorrente(895, "123456-D") ,
+    new ContaCorrente(986, "123456-E") ,
+    new ContaCorrente(975, "123456-F")
+};
+
+List<ContaCorrente> _listaDeContas3= new List<ContaCorrente>(){
+    new ContaCorrente(915, "123456-G") ,
+    new ContaCorrente(946, "123456-H") ,
+    new ContaCorrente(497, "123456-I") 
+};
+
+_listaDeContas2.AddRange(_listaDeContas3);
+
+_listaDeContas2.Reverse();
+
+ for(int i = 0; i < _listaDeContas2.Count; i++)
+ {
+    Console.WriteLine($"Indice[{i}] =  Conta [{_listaDeContas2[i].Conta}]");
+ }
+System.Console.WriteLine("\n\n");
+
+var range = _listaDeContas3.GetRange(0, 1);
+for(int i = 0; i < range.Count; i++)
+ {
+    Console.WriteLine($"Indice[{i}] =  Conta [{range[i].Conta}]");
+ }
+System.Console.WriteLine("\n\n");
+
+_listaDeContas3.Clear();
+for(int i = 0; i <_listaDeContas3.Count; i++)
+ {
+    Console.WriteLine($"Indice[{i}] =  Conta [{_listaDeContas3[i].Conta}]");
+ }
+
+
+//Exercicio Desafio:
+List<string> nomesDosEscolhidos = new List<string>()
+{
+    "Bruce Wayne",
+    "Carlos Vilagran",
+    "Richard Grayson",
+    "Bob Kane",
+    "Will Farrel",
+    "Lois Lane",
+    "General Welling",
+    "Perla Letícia",
+    "Uxas",
+    "Diana Prince",
+    "Elisabeth Romanova",
+    "Anakin Wayne"
+};
+
+bool VerificaNomes(List<string> nomesDosEscolhidos,string escolhido)
+{
+    return nomesDosEscolhidos.Contains(escolhido);
+}
+System.Console.WriteLine(VerificaNomes(nomesDosEscolhidos, "Anakin Wayne"));
