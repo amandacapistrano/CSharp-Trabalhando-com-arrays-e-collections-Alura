@@ -279,31 +279,33 @@ void PesquisarContas()
 
 ContaCorrente ConsultaPorCpfTitular(string? cpf)
 {
-   ContaCorrente conta = null;
-   for (int i = 0; i < _listaDeContas.Count; i++)
-   {
-        if (_listaDeContas[i].Titular.Cpf.Equals(cpf))
-        {
-            conta = _listaDeContas[i];
-        }
+//    ContaCorrente conta = null;
+//    for (int i = 0; i < _listaDeContas.Count; i++)
+//    {
+//         if (_listaDeContas[i].Titular.Cpf.Equals(cpf))
+//         {
+//             conta = _listaDeContas[i];
+//         }
     
-   }
-   return conta;
+//    }
+//    return conta;
+    return _listaDeContas.Where(conta=>conta.Titular.Cpf==cpf).FirstOrDefault();
 }
 
 
 ContaCorrente ConsultaPorNumeroConta(string? numeroConta)
 {
-    ContaCorrente conta = null;
-   for (int i = 0; i < _listaDeContas.Count; i++)
-   {
-        if (_listaDeContas[i].Conta.Equals(numeroConta))
-        {
-            conta = _listaDeContas[i];
-        }
+//     ContaCorrente conta = null;
+//    for (int i = 0; i < _listaDeContas.Count; i++)
+//    {
+//         if (_listaDeContas[i].Conta.Equals(numeroConta))
+//         {
+//             conta = _listaDeContas[i];
+//         }
     
-   }
-   return conta;
+//    }
+//    return conta;
+return _listaDeContas.Where(conta=>conta.Conta==numeroConta).FirstOrDefault();
    
 }
 
@@ -355,13 +357,14 @@ void ListarContas(){
     }
     foreach (ContaCorrente item in _listaDeContas)
     {
-        Console.WriteLine("==============================");
-        Console.WriteLine("===     Dados da Conta     ===");
-        Console.WriteLine("Numero da Conta: " + item.Conta);
-        Console.WriteLine("Numero da Saldo: " + item.Saldo);
-        Console.WriteLine("Titular  da  Conta: " + item.Titular.Nome);
-        Console.WriteLine("CPF do titular: " + item.Titular.Cpf);
-        Console.WriteLine("Profissao do titular: " + item.Titular.Profissao);
+        // Console.WriteLine("==============================");
+        // Console.WriteLine("===     Dados da Conta     ===");
+        // Console.WriteLine("Numero da Conta: " + item.Conta);
+        // Console.WriteLine("Numero da Saldo: " + item.Saldo);
+        // Console.WriteLine("Titular  da  Conta: " + item.Titular.Nome);
+        // Console.WriteLine("CPF do titular: " + item.Titular.Cpf);
+        // Console.WriteLine("Profissao do titular: " + item.Titular.Profissao);
+        Console.WriteLine(item.ToString());
         Console.WriteLine(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
         Console.ReadKey();
         
