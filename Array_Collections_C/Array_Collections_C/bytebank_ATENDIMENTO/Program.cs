@@ -250,15 +250,16 @@ void PesquisarContas()
     Console.WriteLine("===    Remover Contas      ===");
     Console.WriteLine("==============================");
     Console.WriteLine("\n");
-    System.Console.WriteLine("Deseja pesquisar por (1) Numero da conta ou (2) CPF titular ?");
+    System.Console.WriteLine("Deseja pesquisar por (1) Numero da conta ou (2) CPF titular ou (3) nº da agencia?");
     switch (int.Parse(Console.ReadLine()))
     {
         case 1:
         {
             System.Console.WriteLine("Informe o número da Conta: ");
             string _numeroConta = Console.ReadLine();
-            ContaCorrente consultaConta = ConsultaPorNumeroConta(_numeroConta);
-            System.Console.WriteLine(consultaConta.ToString());
+            var consultaConta = ConsultaPorNumeroConta(_numeroConta);
+            //Antes do LINQ//System.Console.WriteLine(consultaConta.ToString());
+            ExibirListaDeContas(consultaConta);
             Console.ReadKey();
             break;
         }
@@ -271,11 +272,45 @@ void PesquisarContas()
             Console.ReadKey();
             break;
         }
+        case 3:
+        {
+            System.Console.WriteLine("Informe o Nº da Agência: ");
+            int _numeroAgencia = int.Parse(Console.ReadLine());
+            var contasPorAgencia = ConsultaPorAgencia(_numeroAgencia);
+            //System.Console.WriteLine(contasPorAgencia.ToString());
+            ExibirListaDeContas(contasPorAgencia);
+            Console.ReadKey();
+            break;
+        }
         default:
         System.Console.WriteLine("Opção não implementada");
         break;
     }
 }
+
+void ExibirListaDeContas(List<ContaCorrente> contasPorAgencia)
+{
+   if(contasPorAgencia==null){
+    System.Console.WriteLine("...A consulta não retornou dados...");
+   }else{
+    foreach (var item in contasPorAgencia)
+    {
+        System.Console.WriteLine(item.ToString());        
+    }
+   }
+}
+
+
+List<ContaCorrente> ConsultaPorAgencia(int numeroAgencia)
+{
+    var consulta =  (
+        from conta in _listaDeContas
+        where conta.Numero_agencia == numeroAgencia
+        select conta).ToList();
+    
+    return consulta;
+}
+
 
 ContaCorrente ConsultaPorCpfTitular(string? cpf)
 {
@@ -293,7 +328,8 @@ ContaCorrente ConsultaPorCpfTitular(string? cpf)
 }
 
 
-ContaCorrente ConsultaPorNumeroConta(string? numeroConta)
+//ContaCorrente ConsultaPorNumeroConta(string? numeroConta) antes do LINQ
+List<ContaCorrente> ConsultaPorNumeroConta(string? numeroConta)
 {
 //     ContaCorrente conta = null;
 //    for (int i = 0; i < _listaDeContas.Count; i++)
@@ -305,7 +341,14 @@ ContaCorrente ConsultaPorNumeroConta(string? numeroConta)
     
 //    }
 //    return conta;
-return _listaDeContas.Where(conta=>conta.Conta==numeroConta).FirstOrDefault();
+// return _listaDeContas.Where(conta=>conta.Conta==numeroConta).FirstOrDefault();
+
+var consulta =  (
+        from conta in _listaDeContas
+        where conta.Conta== numeroConta
+        select conta).ToList();
+    
+    return consulta;
    
 }
 
